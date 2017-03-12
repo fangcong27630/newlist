@@ -24,7 +24,7 @@ app.run(function(){
 })
 app.controller('indexCtrl',function($scope,$http){
 	//请求数据
-	$http.jsonp("php/http.php",{
+	$http.jsonp("./php/http.php",{
 		params:{
 			type:'top',
 			callback:"JSON_CALLBACK"
@@ -37,17 +37,18 @@ app.controller('indexCtrl',function($scope,$http){
 	//分类点击
 })
 app.controller('artCtrl',function($scope,$routeParams,$http,$sce){
-	$http.jsonp("php/http.php",{
+	$http.jsonp("./php/http.php",{
 		params:{
 			type:$routeParams.type,
 			callback:"JSON_CALLBACK"
 		}
 	}).success(function(data){
+		console.log(data)
 		// 返回的数据赋值给$scope.arr
 		data = data.result.data;
 		$scope.arr = data;
 		var url = $scope.arr[$routeParams.id].url;
-		$http.jsonp("php/http1.php",{
+		$http.jsonp("./php/http1.php",{
 			params:{
 				url:url,
 				callback:"JSON_CALLBACK"
@@ -68,7 +69,7 @@ app.directive('headtop',function($http){
 				var data = this.getAttribute('data');
 				oLi.attr('class','')
 				this.setAttribute('class','select');
-				$http.jsonp('php/http.php',{
+				$http.jsonp('./php/http.php',{
 					params:{
 						type:data,
 						callback:"JSON_CALLBACK"
